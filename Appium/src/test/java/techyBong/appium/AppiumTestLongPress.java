@@ -21,7 +21,7 @@ import io.appium.java_client.AppiumBy;
  * doc for more details: https://github.com/appium/appium-uiautomator2-driver/blob/master/docs/android-mobile-gestures.md
  *  
  */
-public class AppiumTestLongPress extends BaseEnv{
+public class AppiumTestLongPress extends TestingUtilities{
 	
 	@Test
 	public void longPress() throws MalformedURLException, URISyntaxException, InterruptedException {
@@ -37,14 +37,14 @@ public class AppiumTestLongPress extends BaseEnv{
 		
 		WebElement ele = driver.findElement(By.xpath("//android.widget.TextView[@text='People Names']"));
 		
-		//Calling Long Press Gesture event using javascript. More info check below url
-		//--- https://github.com/appium/appium-uiautomator2-driver/blob/master/docs/android-mobile-gestures.md
-		((JavascriptExecutor) driver).executeScript("mobile: longClickGesture", 
-				ImmutableMap.of("elementId",((RemoteWebElement) ele).getId()),
-				"duration",2000);
+		//Calling Long Press Gesture from other call
+		longPressAction(ele);
+		
 		
 		String text= driver.findElement(By.xpath("//android.widget.TextView[@resource-id=\"android:id/title\" and @text=\"Sample menu\"]")).getText();
+		boolean flag=driver.findElement(By.xpath("//android.widget.TextView[@resource-id=\"android:id/title\" and @text=\"Sample menu\"]")).isDisplayed();
 		Assert.assertEquals(text, "Sample menu");
+		Assert.assertTrue(flag);
 		System.out.println("\n\nAssertion is True>> "+text+"\n\n");
 		
 		Thread.sleep(2000);

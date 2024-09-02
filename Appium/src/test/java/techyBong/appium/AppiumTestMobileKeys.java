@@ -4,15 +4,18 @@ import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.DeviceRotation;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import io.appium.java_client.AppiumBy;
+import io.appium.java_client.android.nativekey.AndroidKey;
+import io.appium.java_client.android.nativekey.KeyEvent;
 
-public class AppiumTestClass extends TestingUtilities{
+public class AppiumTestMobileKeys extends TestingUtilities{
 	
 	@Test
-	public void wifiSettingsName() throws MalformedURLException, URISyntaxException {
+	public void pressKeyDemo() throws MalformedURLException, URISyntaxException, InterruptedException {
 		/*
 		 * //calling the configuration class for start server and setup AndroidDriver
 		 * configureAppium();
@@ -32,15 +35,14 @@ public class AppiumTestClass extends TestingUtilities{
 		String alertTxt=driver.findElement(By.id("android:id/alertTitle")).getText();
 		Assert.assertEquals(alertTxt, "WiFi settings");
 		driver.findElement(By.id("android:id/edit")).sendKeys("Subhajit");
+		
+		driver.pressKey(new KeyEvent(AndroidKey.ENTER)); //Hit enter key
+		
 		driver.findElements(AppiumBy.className("android.widget.Button")).get(1).click();
 		
-		//Locator androidUIAutomator
-		//driver.findElement(AppiumBy.androidUIAutomator(new UiSelector().className("android.widget.RelativeLayout").instance(1))).click();
-		
-		/*
-		 * //stop the server and service 
-		 * tearDown();
-		 */
+		driver.pressKey(new KeyEvent(AndroidKey.BACK));//hit back key
+		Thread.sleep(2000);
+		driver.pressKey(new KeyEvent(AndroidKey.HOME));//hit home key
 	}
 	
 
